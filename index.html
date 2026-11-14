@@ -658,7 +658,7 @@ const RESOURCES = [
   const KEY='AIzaSyDDf0yT4L41jkJHwxHipTi63WtZKMF1WE8';
   const UPLOADS='UUjbcS4FaIOdLdwyh8-4XMCA';
   const PAGE=9, CLIP_SECONDS=180;
-  // Topics are matched from each episode's title and description.
+  // New episodes are sorted into topics by words in their title. Current episodes are set by hand below.
   const TOPICS=[
     ['Trusting God',['trust','testing','hard season','fire','valley','detour','understand','stuck','pushing through','chaos','waiting','give \'em time']],
     ['Redemption Stories',['redemption','story','prison','chains','success','insurance','rock','journey','road back']],
@@ -670,7 +670,18 @@ const RESOURCES = [
     ['Purpose & Gifts',['gift','talent','purpose','play or not','on the move','edge','pedal']]
   ];
   // To move an episode to different topics, add its video ID here, for example:  'P-hAPOj3Cs4': ['Trusting God'],
-  const TOPIC_OVERRIDES={};
+  const TOPIC_OVERRIDES={
+    'qj-ChKTyPRI':['Trusting God'], 'Yva82-hCTg8':['Redemption Stories'], 'P-hAPOj3Cs4':['Trusting God'], 'G1xIcfYftyA':['Surrender'],
+    's6SJSrGIJAg':['Trusting God'], 'OtSpCWokxxQ':['Redemption Stories'], 'lmwx5b33Z30':['Pride & Self'], 'udgVXFLH694':['Redemption Stories'],
+    'JiwQ-kw7sGA':['Fruit of the Spirit'], 'omVJcbjASJw':['Fruit of the Spirit'], 'Cw_5yKZXYRc':['Fruit of the Spirit'], 'Opkr1-9phLA':['Redemption Stories'],
+    'FhAe358HhDI':[], 'p5YtHEnCXnc':['Marriage','Redemption Stories'], '0PNLfotG2ME':['Redemption Stories'], 'aj9azm4CTM8':[],
+    'LzY0Ek9nNq4':[], 'y8salmqbYIQ':['Grace & Forgiveness'], 'MmN2M5-VntQ':[], 'hhj6ng7Hllc':['Grace & Forgiveness'],
+    'IPdZsd_lcV4':[], 'XHFJXXh5qQA':[], 'CP1nx24k-6A':['Trusting God'], 'K0_ppjhsua0':['Purpose & Gifts'],
+    '07vzc3kZkq4':['Surrender'], 'e8H79hgxmHQ':['Trusting God'], 'wRrVpXtbDMk':[], 'u7EPmdqKMlY':['Pride & Self'],
+    'HsBjm8ZG86c':[], 'QRmYZXrobJE':['Trusting God'], 'j372iOBbOqA':[], 'aziLGnhT56E':['Trusting God'],
+    'CJzo3j84rP4':['Surrender'], 'FY86zTmV1a0':['Trusting God'], 'P6lU2-2UUHU':['Pride & Self'], 'hxyNGUzqi7w':['Pride & Self'],
+    '5AL5D3ktyac':['Pride & Self']
+  };
   const $=id=>document.getElementById(id);
   const grid=$('epGrid'), tools=$('epTools'), chips=$('epChips'), search=$('epSearch'), more=$('epMore');
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -680,7 +691,7 @@ const RESOURCES = [
     s=s.replace(/([a-z])([A-Z])/g,'$1 $2');
     s=s.split(' ').map(w=>/^[A-Z]{4,}$/.test(w)?w[0]+w.slice(1).toLowerCase():w).join(' ').replace(/\s+/g,' ').trim();
     return s||t};
-  const topicsFor=v=>{if(TOPIC_OVERRIDES[v.id])return TOPIC_OVERRIDES[v.id];const hay=(v.raw+' '+v.desc).toLowerCase();return TOPICS.filter(([,k])=>k.some(w=>hay.includes(w))).map(([n])=>n)};
+  const topicsFor=v=>{if(TOPIC_OVERRIDES[v.id])return TOPIC_OVERRIDES[v.id];const hay=(v.title+' '+v.raw.replace(/([a-z])([A-Z])/g,'$1 $2')).toLowerCase();return TOPICS.filter(([,k])=>k.some(w=>hay.includes(w))).map(([n])=>n)};
   let all=[], shown=PAGE, active='All', q='';
 
   async function load(){
@@ -834,7 +845,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
 
 // always-current app: compare with the live version tag and reload if the site has changed
 (()=>{
-  const SITE_VERSION='20261114155713';
+  const SITE_VERSION='20261114160220';
   let busy=false;
   async function check(){
     if(busy||location.protocol!=='https:')return; busy=true;
