@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import numpy as np
 from scipy import ndimage
-B='/home/claude/f2f/'
+B='./'
 FONT=B+'fonts/cinzel900.ttf'
 rng=np.random.default_rng(7)
 
