@@ -57,9 +57,9 @@ def gold3d(txt,size,depth=None):
     for i in range(len(stops)-1):
         p0,c0=stops[i];p1,c1=stops[i+1];sel=(t>=p0)&(t<=p1);f=((t-p0)/(p1-p0))[...,None]
         col[sel]=(np.array(c0)*(1-f)+np.array(c1)*f)[sel]
-    n=ndimage.gaussian_filter(rng.normal(0,1,(H,W)),size/40)
-    gy,gx=np.gradient(n); shade=np.clip(0.5+(-gy-gx)*size*0.9,0,1)
-    col=col*(0.82+0.32*shade[...,None])
+    n=ndimage.gaussian_filter(rng.normal(0,1,(H,W)),size/16)
+    gy,gx=np.gradient(n); shade=np.clip(0.5+(-gy-gx)*size*2.2,0,1)
+    col=col*(0.86+0.26*shade[...,None])
     face=Image.fromarray(np.dstack([np.clip(col,0,255),M*255]).astype(np.uint8))
     out.alpha_composite(face)
     return out.crop(out.getbbox())
