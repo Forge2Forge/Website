@@ -1,7 +1,7 @@
 // Forge2Forge app: keeps the site loading fast and working with a weak connection.
 // Pages always load fresh from forge2forge.com when online, so the app shows site updates right away.
 // When icons or images change, bump the CACHE number below so phones fetch the new ones.
-const CACHE = 'f2f-v8';
+const CACHE = 'f2f-v9';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './forge-bg-poster.jpg',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/qr.png'];
 
