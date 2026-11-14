@@ -250,7 +250,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 
 
 /* resources */
-.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.6rem}
+.res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem}@media (max-width:760px){.res-grid{grid-template-columns:1fr}}
 .res-cat{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.2em;font-size:.8rem;color:#ffb547;margin-bottom:.5rem}
 .res{display:flex;flex-direction:column;padding:2rem 1.9rem 1.7rem;text-decoration:none;color:inherit}
 .res h3{font-size:1.35rem;margin-bottom:.6rem}
@@ -260,6 +260,18 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 .res-empty{padding:2.4rem;text-align:center;color:var(--muted)}
 .res-note{text-align:center;color:var(--muted);margin-top:2.4rem}
 .res-note a{color:var(--flame)}
+
+.res-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+.res-links .go{text-decoration:none}
+.church{margin-top:2rem;padding:2.6rem 2.4rem;text-align:center}
+.church h3{font-size:clamp(1.5rem,3vw,2rem);margin:.5rem 0 .8rem}
+.church-head p{color:#d8d2ca;max-width:640px;margin:0 auto 1.4rem}
+.campuses{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.6rem}
+.campuses a{padding:.5rem 1rem;border:1px solid rgba(255,166,43,.4);border-radius:30px;color:#ffd27a;text-decoration:none;font-family:'Barlow Condensed';letter-spacing:.12em;text-transform:uppercase;font-weight:600;font-size:.92rem;background:rgba(0,0,0,.25);transition:background .2s,border-color .2s}
+.campuses a:hover{background:rgba(255,106,26,.15);border-color:var(--flame)}
+.church-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.church-far{margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.1)}
+.church-far p{color:var(--muted);margin-bottom:1rem}
 /* process */
 .process{background-color:rgba(20,19,18,.55)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;counter-reset:s}
@@ -279,7 +291,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 
 
 /* hammered fiery-gold 3D lettering */
-.hero h1,.sec-head h2,.about h2,.contact-info h2,.feature-body h3,.step h3,.host h3,.res h3,.plat strong,.brand .bw{
+.hero h1,.sec-head h2,.about h2,.contact-info h2,.feature-body h3,.step h3,.host h3,.res h3,.church h3,.plat strong,.brand .bw{
   font-family:'Cinzel',serif;font-weight:900;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.055' numOctaves='2' seed='3'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='7' diffuseConstant='1.1'%3E%3CfeDistantLight azimuth='225' elevation='42'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E"),linear-gradient(180deg,#fff4c9 0%,#ffd76e 20%,#ffab2e 42%,#e8650f 62%,#ff9a2e 80%,#ffe08a 100%);
   background-size:180px 180px,100% 100%;background-blend-mode:overlay,normal;
@@ -448,6 +460,30 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
       <p>Ministries, groups and tools we trust for men walking through their own forge.</p>
     </div>
     <div class="res-grid" id="resGrid"></div>
+    <div class="church plate reveal">
+      <div class="church-head">
+        <div class="eyebrow">Find a Church</div>
+        <h3>Don't Walk Through the Fire Alone</h3>
+        <p>Every man needs a church family that teaches the Bible and points him to Jesus. If you're in North Texas, StoneWater Church is one church with campuses across the area:</p>
+      </div>
+      <div class="campuses">
+        <a href="https://stonewaterchurch.com/granbury" target="_blank" rel="noopener">Granbury</a>
+        <a href="https://stonewaterchurch.com/glenrose" target="_blank" rel="noopener">Glen Rose</a>
+        <a href="https://stonewaterchurch.com/cleburne" target="_blank" rel="noopener">Cleburne</a>
+        <a href="https://stonewaterchurch.com/tolar" target="_blank" rel="noopener">Tolar</a>
+        <a href="https://stonewaterchurch.com/godley" target="_blank" rel="noopener">Godley</a>
+        <a href="https://stonewaterchurch.com/snyder" target="_blank" rel="noopener">Snyder</a>
+        <a href="https://stonewaterchurch.com/stephenville" target="_blank" rel="noopener">Stephenville</a>
+      </div>
+      <div class="church-btns">
+        <a class="btn btn-fire" href="https://stonewaterchurch.com/visit" target="_blank" rel="noopener">Plan a Visit</a>
+        <a class="btn btn-steel" href="https://stonewaterchurch.com/beliefs" target="_blank" rel="noopener">What StoneWater Believes</a>
+      </div>
+      <div class="church-far">
+        <p><b>Not near StoneWater?</b> Tell us where you live and we'll help you find a Bible-believing church near you.</p>
+        <a class="btn btn-steel" href="#contact" id="findChurchBtn">Help Me Find a Church</a>
+      </div>
+    </div>
     <p class="res-note reveal">Know a ministry or resource that should be on this list? <a href="#contact">Let us know.</a></p>
   </div>
 </section>
@@ -472,6 +508,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
       <label for="topic">What's it about?</label>
       <select id="topic">
         <option>I want to share my story on the show</option>
+        <option>Help me find a church</option>
         <option>Suggest a guest</option>
         <option>Question for the show</option>
         <option>Topic suggestion</option>
@@ -533,15 +570,32 @@ links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('ope
 
 // ===== RESOURCES LIST — add, remove or edit entries here =====
 const RESOURCES = [
-  // { name: "Ministry name", url: "https://example.org", category: "Recovery", desc: "One or two sentences on what they do." },
+  { name: "YouVersion Bible App", category: "Get in the Word", url: "https://www.bible.com/app",
+    desc: "A free Bible app with no ads: hundreds of translations, audio Bibles, and daily reading plans you can do with other guys.",
+    links: [ { label: "App Store", url: "https://apps.apple.com/us/app/bible/id282935706" },
+             { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.sirma.mobile.bible.android" } ] },
+  { name: "Re:generation Recovery", category: "Recovery", url: "https://www.regenerationrecovery.org",
+    desc: "A biblically based discipleship program for anyone stuck in addiction, past hurts or destructive patterns. Use their group finder to find a group near you.",
+    links: [ { label: "Find a Group", url: "https://www.regenerationrecovery.org" } ] },
+  { name: "StoneWater Men", category: "Men's Ministry", url: "https://stonewaterchurch.com/men",
+    desc: "No man was meant to walk alone. Men's groups, Man Events, and the Leading From the Trophy Room podcast at StoneWater Church.",
+    links: [ { label: "StoneWater Men", url: "https://stonewaterchurch.com/men" } ] },
+  { name: "The Gauntlet", category: "Men's Ministry", url: "https://stonewaterchurch.com/gauntlet",
+    desc: "StoneWater's free path for men, in stages: leadership, fitness, marriage, parenting, money, sexuality, spiritual disciplines and legacy. Jump in at any StoneWater campus.",
+    links: [ { label: "See the Stages", url: "https://stonewaterchurch.com/gauntlet" } ] },
 ];
 (()=>{
   const g=document.getElementById('resGrid'); if(!g)return;
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   if(!RESOURCES.length){g.innerHTML='<div class="plate res-empty" style="grid-column:1/-1">Resources are being added. Check back soon.</div>';return}
-  g.innerHTML=RESOURCES.map(r=>`<a class="plate res reveal in" href="${esc(r.url)}" target="_blank" rel="noopener">
-    ${r.category?`<div class="res-cat">${esc(r.category)}</div>`:''}<h3>${esc(r.name)}</h3><p>${esc(r.desc||'')}</p><span class="go">Visit site &#8599;</span></a>`).join('');
+  g.innerHTML=RESOURCES.map(r=>`<div class="plate res reveal in">
+    ${r.category?`<div class="res-cat">${esc(r.category)}</div>`:''}<h3>${esc(r.name)}</h3><p>${esc(r.desc||'')}</p>
+    <div class="res-links">${(r.links&&r.links.length?r.links:[{label:'Visit Site',url:r.url}]).map(l=>`<a class="go" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} &#8599;</a>`).join('')}</div></div>`).join('');
 })();
+
+
+// "Help Me Find a Church" jumps to the contact form with that topic picked
+(()=>{const b=document.getElementById('findChurchBtn');if(!b)return;b.addEventListener('click',()=>{const s=document.getElementById('topic');if(s)s.value='Help me find a church';const m=document.getElementById('msg');if(m&&!m.value)m.placeholder='Your city and state, and anything that would help us point you to the right church.';});})();
 
 // reveal on scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
