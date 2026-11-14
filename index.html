@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Forge2Forge Podcast</title>
 <meta name="description" content="Forge2Forge — a podcast with Jeff Needham and Tyler Jones, sitting down with men to talk about the forges of life God has taken them through. Couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Forge2Forge">
+<meta property="og:title" content="Forge2Forge Podcast">
+<meta property="og:description" content="Couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.">
+<meta property="og:url" content="https://forge2forge.com/">
+<meta property="og:image" content="https://forge2forge.com/icons/share-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Forge2Forge Podcast">
+<meta name="twitter:description" content="Couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.">
+<meta name="twitter:image" content="https://forge2forge.com/icons/share-card.jpg">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#121110">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -617,7 +629,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
   if(standalone)document.body.classList.add('is-app');
   const url='https://forge2forge.com/';
-  const data={title:'Forge2Forge',text:'Check out Forge2Forge: real conversations with men about the forges of life God has taken them through.',url};
+  const data={title:'Forge2Forge',text:'Couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.',url};
   const toast=document.getElementById('toast'), m=document.getElementById('shareModal');
   const say=x=>{toast.textContent=x;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),2600)};
   const send=document.getElementById('shareSend');
