@@ -1,0 +1,16 @@
+{
+  "name": "Forge2Forge",
+  "short_name": "Forge2Forge",
+  "description": "Forge2Forge podcast with Jeff Needham and Tyler Jones: sitting down with men to talk about the forges of life God has taken them through.",
+  "start_url": "./index.html?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#121110",
+  "theme_color": "#121110",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
