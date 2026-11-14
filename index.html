@@ -695,6 +695,31 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   document.getElementById('shareCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);say('Link copied')}catch(_){say('forge2forge.com')}});
 })();
 
+
+// always-current app: compare with the live version tag and reload if the site has changed
+(()=>{
+  const SITE_VERSION='20261114062422';
+  let busy=false;
+  async function check(){
+    if(busy||location.protocol!=='https:')return; busy=true;
+    try{
+      const r=await fetch('version.json?t='+Date.now(),{cache:'no-store'});
+      if(r.ok){const v=(await r.json()).v;
+        if(v&&v!==SITE_VERSION){
+          const key='f2f-reloaded-'+v;
+          let done=false;try{done=sessionStorage.getItem(key)}catch(_){}
+          if(!done){try{sessionStorage.setItem(key,'1')}catch(_){}
+            try{const reg=await navigator.serviceWorker?.getRegistration();await reg?.update()}catch(_){}
+            location.reload();return;}
+        }}
+    }catch(_){}
+    busy=false;
+  }
+  check();
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+  addEventListener('pageshow',e=>{if(e.persisted)check()});
+})();
+
 // install as an app (iPhone + Android)
 (()=>{
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
