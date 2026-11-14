@@ -1,7 +1,7 @@
 {
   "name": "Forge2Forge",
   "short_name": "Forge2Forge",
-  "description": "Couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.",
+  "description": "Just a couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.",
   "start_url": "./index.html?source=app",
   "scope": "./",
   "display": "standalone",
