@@ -67,7 +67,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 /* HERO */
 .hero{position:relative;min-height:100vh;display:grid;place-items:center;text-align:center;padding:120px 0 80px;overflow:hidden;
   background:radial-gradient(ellipse at 50% 45%,rgba(255,106,26,.22),transparent 55%),radial-gradient(ellipse at 50% 120%,rgba(255,90,0,.25),transparent 50%),rgba(14,12,10,.25)}
-#embers{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:40;mix-blend-mode:screen}
+#embers{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:-1}
 .hero-inner{position:relative;z-index:2}
 .hero-logo{width:min(700px,92vw);max-height:64vh;object-fit:contain;margin:-50px auto -6px;filter:drop-shadow(0 0 30px rgba(140,200,255,.35));animation:glow 4s ease-in-out infinite}
 @keyframes glow{50%{filter:drop-shadow(0 0 60px rgba(170,215,255,.55))}}
@@ -193,6 +193,16 @@ body.is-app .hero .share-app{display:inline-flex}
 .share-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
 .share-btns .btn{padding:.75rem 1.2rem}
 .qr-url{font-family:'Cinzel',serif;color:#ffb547 !important;letter-spacing:.06em;margin-top:1.1rem !important}
+
+/* floating share button (phones and the installed app) */
+.share-fab{display:none;position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:70;width:56px;height:56px;border-radius:50%;cursor:pointer;
+  align-items:center;justify-content:center;border:1px solid rgba(255,190,90,.45);
+  background:linear-gradient(160deg,rgba(74,75,80,.72),rgba(28,28,31,.72));-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -2px 0 rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.55),0 0 18px rgba(255,120,30,.25);transition:transform .2s,opacity .3s}
+.share-fab svg{width:24px;height:24px;fill:#ffc15a;filter:drop-shadow(0 1px 0 #5a2003)}
+.share-fab:active{transform:scale(.94)}
+@media (max-width:860px){.share-fab{display:flex}}
+body.is-app .share-fab{display:flex}
 /* install app */
 .get-app{cursor:pointer;font:inherit}
 button.btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
@@ -592,6 +602,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 </footer>
 
 
+<button class="share-fab share-app" type="button" aria-label="Share Forge2Forge"><svg viewBox="0 0 24 24"><path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1z"/></svg></button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="app-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareTitle" hidden>
   <div class="app-card plate">
