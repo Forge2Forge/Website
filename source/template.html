@@ -896,7 +896,10 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   if(standalone){btns.forEach(b=>b.style.display='none');}
   try{ if('serviceWorker' in navigator && location.protocol==='https:'){
     let reloaded=false;
-    navigator.serviceWorker.register('OneSignalSDKWorker.js',{updateViaCache:'none'}).then(reg=>{
+    // On forge2forge.com, OneSignal registers OneSignalSDKWorker.js itself (with its own settings added to the address).
+    // Registering it here too would make the two swap back and forth, so the site only registers it where OneSignal can't.
+    const pushOK=/(^|\.)forge2forge\.com$/.test(location.hostname)&&'PushManager' in window&&'Notification' in window;
+    (pushOK?navigator.serviceWorker.ready:navigator.serviceWorker.register('OneSignalSDKWorker.js',{updateViaCache:'none'})).then(reg=>{
       // check for a newer version whenever the app is opened or brought back to the front
       document.addEventListener('visibilitychange',()=>{if(!document.hidden)reg.update().catch(()=>{})});
     }).catch(()=>{});
