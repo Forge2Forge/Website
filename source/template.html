@@ -55,6 +55,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .links a{text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.95rem;color:var(--steel-lt);transition:color .2s}
 .links a:hover{color:var(--flame)}
 .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
+.nav-right{display:flex;align-items:center;gap:.4rem;margin-left:auto;margin-right:1.5rem}
+.refresh-btn{display:none;background:none;border:0;cursor:pointer;padding:.4rem;line-height:0}
+.refresh-btn svg{width:26px;height:26px;fill:#ffc15a;filter:drop-shadow(0 1px 0 #5a2003)}
+.refresh-btn.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body.is-app .refresh-btn{display:block}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.5rem;border-radius:4px;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:1rem;transition:transform .2s,box-shadow .2s,background .2s;border:2px solid transparent;cursor:pointer}
@@ -352,6 +358,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
   .links.open{display:flex}
   .links a{padding:1rem;width:100%;text-align:center}
   .menu-btn{display:block}
+  .nav-right{margin-right:0}
   .about-grid,.feature,.contact-grid{grid-template-columns:1fr}
   .hosts-grid,.platforms,.row{grid-template-columns:1fr}
   .about-grid{gap:2.5rem}
@@ -368,7 +375,10 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 <nav id="nav">
   <div class="wrap">
     <a href="#top" class="brand"><img src="{{LOGO}}" alt=""><span class="brand-word"><span class="bw">Forge</span><img class="brand-two" src="{{TWO}}" alt="2"><span class="bw">Forge</span></span></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+    <div class="nav-right">
+      <button class="refresh-btn" id="refreshBtn" type="button" aria-label="Refresh the app" title="Refresh"><svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+    </div>
     <div class="links" id="links">
       <a href="#about">About</a>
       <a href="#process">The Forge</a>
@@ -924,6 +934,17 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
     else{steps.innerHTML=`<p style="margin-top:0">The Forge2Forge app is made for your phone. Open <b>forge2forge.com</b> on your iPhone or Android phone and tap <b>Get the App</b> there.</p><p>On a computer using Chrome or Edge, you can also click the install icon at the right end of the address bar.</p>`;}
     open();
   }));
+})();
+
+// refresh button (installed app only): gets the newest site, episodes and app code
+(()=>{
+  const b=document.getElementById('refreshBtn'); if(!b)return;
+  b.addEventListener('click',async()=>{
+    b.classList.add('spin');
+    try{localStorage.removeItem('f2f-eps')}catch(_){}
+    try{const reg=await navigator.serviceWorker?.getRegistration();await reg?.update()}catch(_){}
+    setTimeout(()=>location.reload(),400);
+  });
 })();
 
 // notifications: new episodes and new resources (OneSignal)
