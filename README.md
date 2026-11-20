@@ -15,7 +15,8 @@ We sit down with men to talk about the forges of life God has taken them through
 | `forge-bg.mp4` | The forge video that plays behind the site |
 | `forge-bg-poster.jpg` | Still frame shown on phones instead of the video |
 | `manifest.webmanifest` | Lets people install the site as an app on iPhone and Android |
-| `sw.js` | Keeps the app loading fast and working on a weak connection |
+| `sw.js` | Keeps the app loading fast and working on a weak connection, and receives notifications |
+| `OneSignalSDKWorker.js` | Loads `sw.js`. OneSignal requires this file name, so it is the one the site registers |
 | `icons/` | App icons and browser tab icon (the Forge2Forge shield) |
 | `.nojekyll` | Tells GitHub Pages to serve the files exactly as they are |
 

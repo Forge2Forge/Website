@@ -867,7 +867,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
 
 // always-current app: compare with the live version tag and reload if the site has changed
 (()=>{
-  const SITE_VERSION='20261120231150';
+  const SITE_VERSION='20261120232008';
   let busy=false;
   async function check(){
     if(busy||location.protocol!=='https:')return; busy=true;
@@ -896,7 +896,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   if(standalone){btns.forEach(b=>b.style.display='none');}
   try{ if('serviceWorker' in navigator && location.protocol==='https:'){
     let reloaded=false;
-    navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{
+    navigator.serviceWorker.register('OneSignalSDKWorker.js',{updateViaCache:'none'}).then(reg=>{
       // check for a newer version whenever the app is opened or brought back to the front
       document.addEventListener('visibilitychange',()=>{if(!document.hidden)reg.update().catch(()=>{})});
     }).catch(()=>{});
@@ -944,7 +944,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
     window.OneSignalDeferred=window.OneSignalDeferred||[];
     const s=document.createElement('script');s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';s.defer=true;document.head.appendChild(s);
     OneSignalDeferred.push(async OneSignal=>{
-      try{await OneSignal.init({appId:APP_ID,serviceWorkerPath:'sw.js',serviceWorkerParam:{scope:'/'}});
+      try{await OneSignal.init({appId:APP_ID});
         OS=OneSignal;refresh();OneSignal.User.PushSubscription.addEventListener('change',refresh);}catch(_){}
     });
   }
