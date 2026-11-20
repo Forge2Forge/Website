@@ -27,6 +27,17 @@ Open `index.html`, search for `RESOURCES LIST`, and add a line like:
 { name: "Ministry name", url: "https://example.org", category: "Recovery", desc: "One or two sentences." },
 ```
 
+## Notifications
+
+People tap **Get Notified** on the site (on iPhone, inside the installed app) to get a push notification
+when a new full episode posts on YouTube or a new resource is added. It runs through OneSignal
+(app ID `f7331118-8204-445b-9878-9396bafcc735`).
+
+- `.github/workflows/notify.yml` checks YouTube every hour, and runs right away when `index.html` changes.
+- `notify/notify.py` does the checking and sending. `notify/state.json` remembers what was already announced.
+- The OneSignal API key is the GitHub secret `ONESIGNAL_API_KEY`.
+- To send a test: **Actions** tab → **Notifications** → **Run workflow** → choose `test`.
+
 ## Hosting
 
 Served free with GitHub Pages at **forge2forge.com** once the domain is pointed here.

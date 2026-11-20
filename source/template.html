@@ -394,6 +394,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
       <a class="btn btn-steel" href="https://www.tiktok.com/@forge2forge" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.7V9.2a6.3 6.3 0 1 0 5.4 6.2V8.6a8.2 8.2 0 0 0 3.8 1.2V6.7z"/></svg>Follow on TikTok</a>
       <button class="btn btn-steel get-app" type="button"><svg viewBox="0 0 24 24"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 3v14h10V4zm5 15.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>Get the App</button>
+      <button class="btn btn-steel notify-btn" type="button"><svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg><span>Get Notified</span></button>
       <button class="btn btn-steel share-app" type="button"><svg viewBox="0 0 24 24"><path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1z"/></svg>Share the App</button>
     </div>
   </div>
@@ -591,7 +592,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 <footer>
   <div class="wrap">
     <a href="#top" class="brand"><img src="{{LOGO}}" alt=""><span class="brand-word"><span class="bw">Forge</span><img class="brand-two" src="{{TWO}}" alt="2"><span class="bw">Forge</span></span></a>
-    <small>&copy; <span id="yr"></span> Forge2Forge. All glory to God. &nbsp;·&nbsp; <a href="#" class="get-app app-link">Get the App</a> &nbsp;·&nbsp; <a href="#" class="share-app app-link">Share</a></small>
+    <small>&copy; <span id="yr"></span> Forge2Forge. All glory to God. &nbsp;·&nbsp; <a href="#" class="get-app app-link">Get the App</a> &nbsp;·&nbsp; <a href="#" class="notify-btn app-link"><span>Get Notified</span></a> &nbsp;·&nbsp; <a href="#" class="share-app app-link">Share</a></small>
     <div class="socials">
       <a href="https://www.youtube.com/@forge2forge" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg></a>
       <a href="https://www.tiktok.com/@forge2forge" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.7V9.2a6.3 6.3 0 1 0 5.4 6.2V8.6a8.2 8.2 0 0 0 3.8 1.2V6.7z"/></svg></a>
@@ -623,6 +624,14 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
     <img src="icons/icon-192.png" alt="" class="app-icon">
     <h3 id="appTitle">Get the Forge2Forge App</h3>
     <div id="appSteps"></div>
+  </div>
+</div>
+<div class="app-modal" id="notifyModal" role="dialog" aria-modal="true" aria-labelledby="notifyTitle" hidden>
+  <div class="app-card plate">
+    <button class="app-x" type="button" aria-label="Close">&times;</button>
+    <img src="icons/icon-192.png" alt="" class="app-icon">
+    <h3 id="notifyTitle">Notifications</h3>
+    <div id="notifySteps"></div>
   </div>
 </div>
 <script>
@@ -705,8 +714,9 @@ const RESOURCES = [
   const topicsFor=v=>{if(TOPIC_OVERRIDES[v.id])return TOPIC_OVERRIDES[v.id];const hay=(v.title+' '+v.raw.replace(/([a-z])([A-Z])/g,'$1 $2')).toLowerCase();return TOPICS.filter(([,k])=>k.some(w=>hay.includes(w))).map(([n])=>n)};
   let all=[], shown=PAGE, active='All', q='';
 
+  const EP=new URLSearchParams(location.search).get('ep');
   async function load(){
-    try{const c=JSON.parse(localStorage.getItem('f2f-eps')||'null');if(c&&Date.now()-c.t<30*60*1000)return c.v}catch(_){}
+    if(!EP)try{const c=JSON.parse(localStorage.getItem('f2f-eps')||'null');if(c&&Date.now()-c.t<30*60*1000)return c.v}catch(_){}
     let items=[],tok='';
     do{const r=await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${UPLOADS}&key=${KEY}`+(tok?`&pageToken=${tok}`:''));
       if(!r.ok)throw new Error('yt');const p=await r.json();items=items.concat(p.items||[]);tok=p.nextPageToken}while(tok&&items.length<500);
@@ -752,6 +762,7 @@ const RESOURCES = [
     chips.innerHTML=['All',...used].map(n=>`<button type="button" class="${n==='All'?'on':''}">${esc(n)}</button>`).join('');
     chips.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;active=b.textContent;shown=PAGE;chips.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));render()});
     tools.hidden=false; render();
+    if(EP&&/^[\w-]{11}$/.test(EP)){openPlayer(all.find(v=>v.id===EP)||{id:EP,title:'Forge2Forge'});try{history.replaceState(null,'',location.pathname+'#episodes')}catch(_){}}
   }).catch(()=>{});
 })();
 
@@ -909,6 +920,45 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
     else if(/android/i.test(ua)){steps.innerHTML=`<ol><li>Open this site in <b>Chrome</b>.</li><li>Tap the <b>three dots</b> in the top right corner.</li><li>Tap <b>Add to Home screen</b> or <b>Install app</b>.</li><li>Tap <b>Install</b>.</li></ol><p>The Forge2Forge shield will show up with your other apps.</p>`;}
     else{steps.innerHTML=`<p style="margin-top:0">The Forge2Forge app is made for your phone. Open <b>forge2forge.com</b> on your iPhone or Android phone and tap <b>Get the App</b> there.</p><p>On a computer using Chrome or Edge, you can also click the install icon at the right end of the address bar.</p>`;}
     open();
+  }));
+})();
+
+// notifications: new episodes and new resources (OneSignal)
+(()=>{
+  const APP_ID='f7331118-8204-445b-9878-9396bafcc735';
+  const btns=[...document.querySelectorAll('.notify-btn')]; if(!btns.length)return;
+  const live=/(^|\.)forge2forge\.com$/.test(location.hostname)&&location.protocol==='https:';
+  const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  const ua=navigator.userAgent, ios=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const supported='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+  const modal=document.getElementById('notifyModal'), steps=document.getElementById('notifySteps'), toast=document.getElementById('toast');
+  const say=x=>{toast.textContent=x;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),3200)};
+  const open=h=>{steps.innerHTML=h;modal.hidden=false;modal.querySelector('.app-x').focus()};
+  const close=()=>{modal.hidden=true};
+  modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('.app-x'))close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  let OS=null;
+  const isOn=()=>{try{return !!(OS&&OS.User.PushSubscription.optedIn)}catch(_){return false}};
+  const refresh=()=>{const on=isOn();btns.forEach(b=>{const s=b.querySelector('span');if(s)s.textContent=on?'Notifications On':'Get Notified'})};
+  if(live&&supported){
+    window.OneSignalDeferred=window.OneSignalDeferred||[];
+    const s=document.createElement('script');s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';s.defer=true;document.head.appendChild(s);
+    OneSignalDeferred.push(async OneSignal=>{
+      try{await OneSignal.init({appId:APP_ID,serviceWorkerPath:'sw.js',serviceWorkerParam:{scope:'/'}});
+        OS=OneSignal;refresh();OneSignal.User.PushSubscription.addEventListener('change',refresh);}catch(_){}
+    });
+  }
+  btns.forEach(b=>b.addEventListener('click',async e=>{
+    e.preventDefault();
+    if(ios&&!standalone){open(`<p style="margin-top:0">On iPhone, notifications work inside the Forge2Forge app.</p><ol><li>Tap <b>Get the App</b> and add Forge2Forge to your home screen.</li><li>Open the app from the <b>shield on your home screen</b>.</li><li>Tap <b>Get Notified</b> in the app and then tap <b>Allow</b>.</li></ol><p>Your iPhone needs iOS 16.4 or newer.</p>`);return}
+    if(!supported){open(`<p style="margin-top:0">This browser can't show notifications. Try Chrome on Android, or the Forge2Forge app on iPhone.</p>`);return}
+    if(!live){open(`<p style="margin-top:0">Notifications only work on <b>forge2forge.com</b>.</p>`);return}
+    if(Notification.permission==='denied'){open(`<p style="margin-top:0">Notifications are blocked for Forge2Forge on this device.</p><p>To turn them back on, open your phone's <b>Settings</b>, find <b>Notifications</b>, pick <b>Forge2Forge</b> (or your browser), and allow notifications. Then come back and tap <b>Get Notified</b> again.</p>`);return}
+    if(!OS){say('One moment, try again in a few seconds.');return}
+    if(isOn()){open(`<p style="margin-top:0">Notifications are <b>on</b>. We'll let you know when a new episode drops or a new resource is added.</p><div class="share-btns"><button class="btn btn-steel" type="button" id="notifyOff">Turn Off</button></div>`);
+      document.getElementById('notifyOff').onclick=async()=>{try{await OS.User.PushSubscription.optOut()}catch(_){}refresh();close();say('Notifications are off.')};return}
+    try{if(Notification.permission==='granted')await OS.User.PushSubscription.optIn();else await OS.Notifications.requestPermission();}catch(_){}
+    setTimeout(()=>{refresh();if(isOn())say("You're in. We'll let you know when a new episode drops.")},600);
   }));
 })();
 </script>
