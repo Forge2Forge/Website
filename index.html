@@ -867,7 +867,7 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
 
 // always-current app: compare with the live version tag and reload if the site has changed
 (()=>{
-  const SITE_VERSION='20261120232117';
+  const SITE_VERSION='20261120233329';
   let busy=false;
   async function check(){
     if(busy||location.protocol!=='https:')return; busy=true;
@@ -951,6 +951,9 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
         OS=OneSignal;refresh();OneSignal.User.PushSubscription.addEventListener('change',refresh);}catch(_){}
     });
   }
+  // clear the red number on the app icon whenever the app is opened
+  const clearBadge=()=>{try{navigator.clearAppBadge&&navigator.clearAppBadge().catch(()=>{});caches.open('f2f-badge').then(c=>c.delete('unread')).catch(()=>{})}catch(_){}};
+  clearBadge();document.addEventListener('visibilitychange',()=>{if(!document.hidden)clearBadge()});
   btns.forEach(b=>b.addEventListener('click',async e=>{
     e.preventDefault();
     if(ios&&!standalone){open(`<p style="margin-top:0">On iPhone, notifications work inside the Forge2Forge app.</p><ol><li>Tap <b>Get the App</b> and add Forge2Forge to your home screen.</li><li>Open the app from the <b>shield on your home screen</b>.</li><li>Tap <b>Get Notified</b> in the app and then tap <b>Allow</b>.</li></ol><p>Your iPhone needs iOS 16.4 or newer.</p>`);return}
