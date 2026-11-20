@@ -118,7 +118,26 @@ def send(heading, text, url, image=None, strict=False):
     print('Sent:', heading, '-', text, '| id', r.get('id'), '| note', errs or '')
 
 
+def status():
+    key = os.environ.get('ONESIGNAL_API_KEY')
+    h = {'Authorization': 'Key ' + key}
+    segs = get_json(f'https://api.onesignal.com/apps/{APP_ID}/segments?limit=50', h).get('segments', [])
+    for s in segs:
+        try:
+            c = get_json(f"https://api.onesignal.com/apps/{APP_ID}/segments/{s['id']}", h).get('subscriber_count')
+        except Exception as e:
+            c = f'? ({e})'
+        print('Segment', s.get('name'), '=', c)
+    n = get_json(f'https://api.onesignal.com/notifications?app_id={APP_ID}&limit=5', h)
+    for x in n.get('notifications', []):
+        keep = {k: x.get(k) for k in ('id', 'headings', 'successful', 'failed', 'errored', 'converted', 'remaining', 'received', 'platform_delivery_stats', 'completed_at')}
+        print('Notification', json.dumps(keep))
+
+
 def main():
+    if '--status' in sys.argv:
+        status()
+        return
     if '--test' in sys.argv:
         send('Forge2Forge', 'Test notification. If you can read this, notifications are working.', SITE, strict=True)
         return

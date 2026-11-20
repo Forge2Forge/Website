@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'check = look for new episodes/resources now, test = send a test notification'
+        description: 'check = look for new episodes/resources now, test = send a test notification, status = show subscriber and delivery counts'
         type: choice
-        options: [check, test]
+        options: [check, test, status]
         default: check
 
 permissions:
@@ -38,6 +38,8 @@ jobs:
         run: |
           if [ "${{ github.event.inputs.mode }}" = "test" ]; then
             python notify/notify.py --test
+          elif [ "${{ github.event.inputs.mode }}" = "status" ]; then
+            python notify/notify.py --status
           else
             python notify/notify.py
           fi
