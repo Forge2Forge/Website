@@ -83,11 +83,26 @@ def resources():
             re.findall(r'name:\s*"([^"]+)".*?desc:\s*"([^"]*)"', m.group(1), re.S)]
 
 
-def send(heading, text, url, image=None):
+def audience(key):
+    """Name of OneSignal's built-in 'everyone subscribed' segment for this app."""
+    try:
+        r = get_json(f'https://api.onesignal.com/apps/{APP_ID}/segments?limit=300',
+                     {'Authorization': 'Key ' + key})
+        names = [s.get('name') for s in r.get('segments', [])]
+        print('Segments in OneSignal:', names)
+        for want in ('Subscribed Users', 'Total Subscriptions', 'Active Subscriptions', 'Active Users'):
+            if want in names:
+                return want
+    except Exception as e:
+        print('Could not list segments:', e)
+    return 'Subscribed Users'
+
+
+def send(heading, text, url, image=None, strict=False):
     key = os.environ.get('ONESIGNAL_API_KEY')
     if not key:
         sys.exit('ONESIGNAL_API_KEY secret is missing')
-    body = {'app_id': APP_ID, 'target_channel': 'push', 'included_segments': ['Total Subscriptions'],
+    body = {'app_id': APP_ID, 'target_channel': 'push', 'included_segments': [audience(key)],
             'headings': {'en': heading}, 'contents': {'en': text}, 'url': url, 'chrome_web_icon': ICON}
     if image:
         body['chrome_web_image'] = image
@@ -98,14 +113,14 @@ def send(heading, text, url, image=None):
     except urllib.error.HTTPError as e:
         sys.exit(f'OneSignal error {e.code}: {e.read().decode()[:500]}')
     errs = r.get('errors')
-    if errs and 'not subscribed' not in json.dumps(errs).lower():
+    if errs and (strict or 'not subscribed' not in json.dumps(errs).lower()):
         sys.exit(f'OneSignal error: {errs}')
     print('Sent:', heading, '-', text, '| id', r.get('id'), '| note', errs or '')
 
 
 def main():
     if '--test' in sys.argv:
-        send('Forge2Forge', 'Test notification. If you can read this, notifications are working.', SITE)
+        send('Forge2Forge', 'Test notification. If you can read this, notifications are working.', SITE, strict=True)
         return
     state = json.load(open(STATE)) if os.path.exists(STATE) else {}
     changed = False
