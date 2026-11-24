@@ -313,6 +313,9 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 .ep .meta{padding:.9rem 1.1rem 1.2rem}
 .ep .meta h4{font-family:'Cinzel',serif;font-weight:800;font-size:1.02rem;line-height:1.3;color:#ffd27a;margin-bottom:.35rem}
 .ep .meta small{color:var(--muted);font-size:.85rem}
+.ep-grid.two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1000px;margin:0 auto}
+.ep-grid.two .meta h4{font-size:1.2rem}
+.more-cta{padding:0 0 4rem;margin-top:-2rem}
 .ep-more{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
 .ep-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:2rem}
 .player-card{width:min(960px,100%);position:relative}
@@ -321,7 +324,7 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 .player-card h3{font-family:'Cinzel',serif;color:#ffd27a;margin-top:1rem;font-size:1.2rem;text-align:center}
 .player-card .player-x{position:absolute;top:-2.6rem;right:0;background:none;border:0;color:#ddd;font-size:2.2rem;cursor:pointer}
 @media (max-width:900px){.ep-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.ep-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.ep-grid,.ep-grid.two{grid-template-columns:1fr}}
 /* process */
 .process{background-color:rgba(20,19,18,.55)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;counter-reset:s}
@@ -380,11 +383,12 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
       <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
     </div>
     <div class="links" id="links">
-      <a href="#watch">Episodes</a>
       <a href="#about">About</a>
-      <a href="#process">The Forge</a>
+      <a href="#latest">Episodes</a>
       <a href="#hosts">Hosts</a>
       <a href="#resources">Resources</a>
+      <a href="#watch">All Episodes</a>
+      <a href="#process">The Forge</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -399,9 +403,9 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
     <div class="hosts-line">with Jeff Needham &amp; Tyler Jones</div>
     <p class="tag" style="max-width:720px;font-style:italic">Just a couple of messed-up guys, livin’ in a messed-up world, talkin’ about how we do it all for the glory of God.</p>
     <div class="cta-row">
-      <a class="btn btn-fire" href="#watch">
+      <a class="btn btn-fire" href="#latest">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch Episodes</a>
-      <a class="btn btn-steel" href="https://www.youtube.com/@forge2forge?sub_confirmation=1" target="_blank" rel="noopener">
+      <a class="btn btn-steel yt-sub" href="https://www.youtube.com/@forge2forge?sub_confirmation=1" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg>Subscribe on YouTube</a>
       <button class="btn btn-steel get-app" type="button"><svg viewBox="0 0 24 24"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 3v14h10V4zm5 15.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>Get the App</button>
       <button class="btn btn-steel notify-btn" type="button"><svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg><span>Get Notified</span></button>
@@ -410,60 +414,6 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
   </div>
 
 </header>
-
-<div class="hot-bar"></div>
-
-<section class="watch" id="watch">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Episodes</div>
-      <h2>Pull Up a Chair</h2>
-      <p>Real conversations with real men about the fires that forged them. Watch full episodes on YouTube and catch the short clips on TikTok.</p>
-    </div>
-    <div class="feature reveal" id="epFeature">
-      <a class="feature-img" id="featLink" href="https://www.youtube.com/watch?v=P-hAPOj3Cs4" target="_blank" rel="noopener" aria-label="Play the featured episode">
-        <img id="featImg" src="{{STUDIO}}" alt="Featured episode thumbnail">
-        <div class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
-      </a>
-      <div class="feature-body">
-        <div class="eyebrow" id="featEyebrow">Featured Episode</div>
-        <h3 id="featTitle">Detours: When God's Route Isn't the One You Planned</h3>
-        <p id="featDesc">Life rarely goes according to plan. Jeff and Tyler talk about the unexpected turns, the wrong exits, and how God uses the detours.</p>
-        <div><a class="btn btn-fire" id="featBtn" href="https://www.youtube.com/watch?v=P-hAPOj3Cs4" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch Now</a></div>
-      </div>
-    </div>
-
-    <div class="ep-tools reveal" id="epTools" hidden>
-      <div class="ep-search"><svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg><input id="epSearch" type="search" placeholder="Search episodes or guests" aria-label="Search episodes"></div>
-      <div class="ep-chips" id="epChips"></div>
-    </div>
-    <div class="ep-grid" id="epGrid"></div>
-    <div class="ep-more"><button class="btn btn-steel" type="button" id="epMore" hidden>Load More Episodes</button>
-      <a class="btn btn-steel" href="https://www.youtube.com/@forge2forge/videos" target="_blank" rel="noopener" id="epYT">See Everything on YouTube</a></div>
-
-    <div class="app-modal" id="playerModal" role="dialog" aria-modal="true" aria-label="Episode player" hidden>
-      <div class="player-card">
-        <button class="app-x player-x" type="button" aria-label="Close">&times;</button>
-        <div class="player-frame" id="playerFrame"></div>
-        <h3 id="playerTitle"></h3>
-      </div>
-    </div>
-    <div class="platforms">
-      <a class="plat plate yt reveal" href="https://www.youtube.com/@forge2forge?sub_confirmation=1" target="_blank" rel="noopener">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg></div>
-        <div><strong>YouTube</strong><small>Subscribe @forge2forge</small></div><span class="arrow">&rarr;</span>
-      </a>
-      <a class="plat plate tt reveal" href="https://www.tiktok.com/@forge2forge" target="_blank" rel="noopener">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.7V9.2a6.3 6.3 0 1 0 5.4 6.2V8.6a8.2 8.2 0 0 0 3.8 1.2V6.7z"/></svg></div>
-        <div><strong>TikTok</strong><small>Follow @forge2forge</small></div><span class="arrow">&rarr;</span>
-      </a>
-      <a class="plat plate fb reveal" href="https://www.facebook.com/profile.php?id=61587396693413" target="_blank" rel="noopener">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></div>
-        <div><strong>Facebook</strong><small>Follow Forge2Forge</small></div><span class="arrow">&rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
 
 <div class="hot-bar"></div>
 
@@ -482,19 +432,15 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
 
 <div class="hot-bar"></div>
 
-<section class="process" id="process">
-  <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fireGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7a0"/><stop offset=".5" stop-color="#ffa62b"/><stop offset="1" stop-color="#ff5a0a"/></linearGradient></defs></svg>
+<section class="watch latest" id="latest">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Why Forge2Forge</div>
-      <h2>The Forging Never Stops</h2>
-      <p>Iron gets shaped one fire at a time. So do we.</p>
+      <div class="eyebrow">Newest Episodes</div>
+      <h2>Pull Up a Chair</h2>
+      <p>Real conversations with real men about the fires that forged them.</p>
     </div>
-<div class="steps">
-      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2c1 3.5-1.5 5.3-1.5 8 0 1.4 1 2.5 2.3 2.5 1.5 0 2.4-1.2 2.2-3 2.6 1.8 4 4.4 4 7.1A7 7 0 0 1 12 22a7 7 0 0 1-7-6.6C4.8 10.6 9.6 7.6 12 2z"/></svg></div><div class="num">01</div><h3>The Heat</h3><p>The hard seasons, the trials, the stuff that turns the temperature up on your life.</p></div>
-      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M14.5 2.5 21.5 9.5 19 12l-2.2-2.2-1.6 1.6L5 21.6a1.9 1.9 0 0 1-2.7-2.7L12.6 8.8 11 7.2l-1.6 1.6L7.3 6.7z"/></svg></div><div class="num">02</div><h3>The Pressure</h3><p>The hammer comes down. It doesn't feel good, but that's where the change happens.</p></div>
-      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M1 6h14V5h8v5h-4c-2 0-3 1.2-3 3v1.5h2.5V17h1.5v2H4v-2h1.5v-2.5H8V13c0-1.6-1.6-2.6-3.5-3C2.6 9.6 1.3 8 1 6z"/></svg></div><div class="num">03</div><h3>The Shaping</h3><p>Little by little, the rough edges get worked out and something stronger takes shape.</p></div>
-      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 4V1L7.5 5.5 12 10V7a5 5 0 1 1-5 5H4a8 8 0 1 0 8-8z"/></svg></div><div class="num">04</div><h3>The Next Forge</h3><p>Then it's back into the fire. From one forge to the next, for the glory of God.</p></div>
+    <div class="ep-grid two" id="latestGrid">
+      <a class="ep plate" href="https://www.youtube.com/@forge2forge/videos" target="_blank" rel="noopener"><div class="thumb"><img src="{{STUDIO}}" alt=""></div><div class="meta"><h4>Watch the newest episodes</h4><small>Loading…</small></div></a>
     </div>
   </div>
 </section>
@@ -522,6 +468,12 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
         <p>A pastor who has walked through a few forges of his own and brings God's Word into every conversation.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="more-cta" id="more">
+  <div class="wrap" style="text-align:center">
+    <a class="btn btn-fire" href="#watch"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch More Episodes</a>
   </div>
 </section>
 
@@ -560,6 +512,66 @@ body{background-color:#0e0d0c;background-image:url("data:image/svg+xml,%3Csvg xm
       </div>
     </div>
     <p class="res-note reveal">Know a ministry or resource that should be on this list? <a href="#contact">Let us know.</a></p>
+  </div>
+</section>
+
+<div class="hot-bar"></div>
+
+<section class="watch" id="watch">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Episode Library</div>
+      <h2>Every Episode</h2>
+      <p>Search by guest or topic, or browse every conversation from the Forge2Forge studio. Short clips are on TikTok.</p>
+    </div>
+    <div class="ep-tools reveal" id="epTools" hidden>
+      <div class="ep-search"><svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg><input id="epSearch" type="search" placeholder="Search episodes or guests" aria-label="Search episodes"></div>
+      <div class="ep-chips" id="epChips"></div>
+    </div>
+    <div class="ep-grid" id="epGrid"></div>
+    <div class="ep-more"><button class="btn btn-steel" type="button" id="epMore" hidden>Load More Episodes</button>
+      <a class="btn btn-steel" href="https://www.youtube.com/@forge2forge/videos" target="_blank" rel="noopener" id="epYT">See Everything on YouTube</a></div>
+
+    <div class="app-modal" id="playerModal" role="dialog" aria-modal="true" aria-label="Episode player" hidden>
+      <div class="player-card">
+        <button class="app-x player-x" type="button" aria-label="Close">&times;</button>
+        <div class="player-frame" id="playerFrame"></div>
+        <h3 id="playerTitle"></h3>
+      </div>
+    </div>
+    <div class="platforms">
+      <a class="plat plate yt reveal yt-sub" href="https://www.youtube.com/@forge2forge?sub_confirmation=1" target="_blank" rel="noopener">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg></div>
+        <div><strong>YouTube</strong><small>Subscribe @forge2forge</small></div><span class="arrow">&rarr;</span>
+      </a>
+      <a class="plat plate tt reveal" href="https://www.tiktok.com/@forge2forge" target="_blank" rel="noopener">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.7V9.2a6.3 6.3 0 1 0 5.4 6.2V8.6a8.2 8.2 0 0 0 3.8 1.2V6.7z"/></svg></div>
+        <div><strong>TikTok</strong><small>Follow @forge2forge</small></div><span class="arrow">&rarr;</span>
+      </a>
+      <a class="plat plate fb reveal" href="https://www.facebook.com/profile.php?id=61587396693413" target="_blank" rel="noopener">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></div>
+        <div><strong>Facebook</strong><small>Follow Forge2Forge</small></div><span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="hot-bar"></div>
+
+<section class="process" id="process">
+  <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fireGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7a0"/><stop offset=".5" stop-color="#ffa62b"/><stop offset="1" stop-color="#ff5a0a"/></linearGradient></defs></svg>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Why Forge2Forge</div>
+      <h2>The Forging Never Stops</h2>
+      <p>Iron gets shaped one fire at a time. So do we.</p>
+    </div>
+<div class="steps">
+      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2c1 3.5-1.5 5.3-1.5 8 0 1.4 1 2.5 2.3 2.5 1.5 0 2.4-1.2 2.2-3 2.6 1.8 4 4.4 4 7.1A7 7 0 0 1 12 22a7 7 0 0 1-7-6.6C4.8 10.6 9.6 7.6 12 2z"/></svg></div><div class="num">01</div><h3>The Heat</h3><p>The hard seasons, the trials, the stuff that turns the temperature up on your life.</p></div>
+      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M14.5 2.5 21.5 9.5 19 12l-2.2-2.2-1.6 1.6L5 21.6a1.9 1.9 0 0 1-2.7-2.7L12.6 8.8 11 7.2l-1.6 1.6L7.3 6.7z"/></svg></div><div class="num">02</div><h3>The Pressure</h3><p>The hammer comes down. It doesn't feel good, but that's where the change happens.</p></div>
+      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M1 6h14V5h8v5h-4c-2 0-3 1.2-3 3v1.5h2.5V17h1.5v2H4v-2h1.5v-2.5H8V13c0-1.6-1.6-2.6-3.5-3C2.6 9.6 1.3 8 1 6z"/></svg></div><div class="num">03</div><h3>The Shaping</h3><p>Little by little, the rough edges get worked out and something stronger takes shape.</p></div>
+      <div class="step plate reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 4V1L7.5 5.5 12 10V7a5 5 0 1 1-5 5H4a8 8 0 1 0 8-8z"/></svg></div><div class="num">04</div><h3>The Next Forge</h3><p>Then it's back into the fire. From one forge to the next, for the glory of God.</p></div>
+    </div>
   </div>
 </section>
 
@@ -749,13 +761,16 @@ const RESOURCES = [
   addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('playerModal').hidden)closePlayer()});
   const dateStr=d=>new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   function list(){const full=all.filter(v=>v.dur>CLIP_SECONDS);
-    return full.filter(v=>(active==='All'||v.topics.includes(active))&&(!q||(v.title+' '+v.desc).toLowerCase().includes(q)))}
-  function render(){const L=list();
-    grid.innerHTML=L.length?L.slice(0,shown).map(v=>`<button class="ep plate" type="button" data-id="${v.id}">
+    const top=(active==='All'&&!q)?new Set(full.slice(0,2).map(v=>v.id)):new Set();
+    return full.filter(v=>!top.has(v.id)&&(active==='All'||v.topics.includes(active))&&(!q||(v.title+' '+v.desc).toLowerCase().includes(q)))}
+  const card=v=>`<button class="ep plate" type="button" data-id="${v.id}">
       <div class="thumb">${v.thumb?`<img src="${esc(v.thumb)}" alt="" loading="lazy">`:''}<span class="dur">${fmt(v.dur)}</span><div class="pbtn"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="meta"><h4>${esc(v.title)}</h4><small>${dateStr(v.date)}</small></div></button>`).join(''):`<div class="ep-empty">No episodes match that yet. Try another topic or search.</div>`;
+      <div class="meta"><h4>${esc(v.title)}</h4><small>${dateStr(v.date)}</small></div></button>`;
+  function render(){const L=list();
+    grid.innerHTML=L.length?L.slice(0,shown).map(card).join(''):`<div class="ep-empty">No episodes match that yet. Try another topic or search.</div>`;
     more.hidden=L.length<=shown;
   }
+  $('latestGrid').addEventListener('click',e=>{const b=e.target.closest('.ep[data-id]');if(!b)return;const v=all.find(x=>x.id===b.dataset.id);if(v)openPlayer(v)});
   grid.addEventListener('click',e=>{const b=e.target.closest('.ep');if(!b)return;const v=all.find(x=>x.id===b.dataset.id);if(v)openPlayer(v)});
   more.addEventListener('click',()=>{shown+=PAGE;render()});
   let tmr;search.addEventListener('input',()=>{clearTimeout(tmr);tmr=setTimeout(()=>{q=search.value.trim().toLowerCase();shown=PAGE;render()},150)});
@@ -763,17 +778,29 @@ const RESOURCES = [
     if(!vids||!vids.length)return;
     all=vids.map(v=>({...v,topics:topicsFor(v)}));
     const full=all.filter(v=>v.dur>CLIP_SECONDS), f=full[0];
-    if(f){ $('featEyebrow').textContent='Newest Episode'; $('featTitle').textContent=f.title;
-      const d=f.desc.split('\n').map(s=>s.trim()).filter(Boolean)[0]||''; $('featDesc').textContent=d.length>220?d.slice(0,217)+'…':d||'The latest conversation from the Forge2Forge studio.';
-      if(f.thumb)$('featImg').src=f.thumb; $('featImg').alt=f.title;
-      ['featLink','featBtn'].forEach(id=>{const a=$(id);a.href='https://www.youtube.com/watch?v='+f.id;a.addEventListener('click',e=>{e.preventDefault();openPlayer(f)})});
-    }
+    if(f){ $('latestGrid').innerHTML=full.slice(0,2).map(card).join(''); }
     const used=TOPICS.map(([n])=>n).filter(n=>full.some(v=>v.topics.includes(n)));
     chips.innerHTML=['All',...used].map(n=>`<button type="button" class="${n==='All'?'on':''}">${esc(n)}</button>`).join('');
     chips.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;active=b.textContent;shown=PAGE;chips.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));render()});
     tools.hidden=false; render();
     if(EP&&/^[\w-]{11}$/.test(EP)){openPlayer(all.find(v=>v.id===EP)||{id:EP,title:'Forge2Forge'});try{history.replaceState(null,'',location.pathname+'#episodes')}catch(_){}}
   }).catch(()=>{});
+})();
+
+// Subscribe on YouTube. In the iPhone app, a plain link to YouTube can do nothing when tapped,
+// so open the YouTube app directly, and fall back to the YouTube website if it isn't installed.
+(()=>{
+  const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  const iOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const WEB='https://www.youtube.com/channel/UCjbcS4FaIOdLdwyh8-4XMCA?sub_confirmation=1';
+  document.querySelectorAll('.yt-sub').forEach(a=>a.addEventListener('click',e=>{
+    if(!(standalone&&iOS))return;
+    e.preventDefault();
+    let left=false;const gone=()=>{left=true};
+    document.addEventListener('visibilitychange',gone,{once:true});addEventListener('pagehide',gone,{once:true});
+    location.href='youtube://www.youtube.com/channel/UCjbcS4FaIOdLdwyh8-4XMCA';
+    setTimeout(()=>{if(!left&&!document.hidden)window.open(WEB,'_blank')||(location.href=WEB)},1400);
+  }));
 })();
 
 // reveal on scroll
